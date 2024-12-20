@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import '../models/note.dart';
+import '../widgets/note_card.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Untuk mengambil data Notes dari models note.dart
+    final notes = Note.dummyNotes();
+
     return Scaffold(
       backgroundColor: Colors.grey.shade900,
       body: SafeArea(
@@ -52,6 +57,18 @@ class HomePage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(40),
                     borderSide: const BorderSide(color: Colors.transparent),
                   ),
+                ),
+              ),
+              SizedBox(height: 10),
+
+              // List Notes Section
+              Expanded(
+                child: ListView.builder(
+                  itemCount: notes.length,
+                  itemBuilder: (context, index) {
+                    // Menggunakan widget NoteCard
+                    return NoteCard(note: notes[index]);
+                  },
                 ),
               ),
             ],
