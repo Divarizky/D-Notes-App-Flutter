@@ -44,8 +44,9 @@ class HomePage extends StatelessWidget {
                   prefixIcon: Icon(Icons.search, color: Colors.grey),
                   fillColor: Colors.grey.shade800,
                   filled: true,
-                  border: OutlineInputBorder(
+                  enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(40),
+                    borderSide: const BorderSide(color: Colors.transparent),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(40),
@@ -53,12 +54,19 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Floating Button
             ],
           ),
         ),
       ),
+
+      // Floating Action Button Section
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        elevation: 10,
+        backgroundColor: Colors.grey.shade800,
+        child: const Icon(Icons.add, color: Colors.white, size: 38),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
