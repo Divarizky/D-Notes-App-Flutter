@@ -2,12 +2,38 @@ import 'package:flutter/material.dart';
 import '../models/note.dart';
 import '../widgets/note_card.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // Inisialisasi filteredNotes dengan dummyNotes
+  List<Note> filteredNotes = List.from(dummyNotes);
+
+  // Fungsi untuk pencarian search bar
+  void onSearchChanged(String searchText) {
+    setState(() {
+      // Memperbarui filteredNotes berdasarkan teks pencarian
+      filteredNotes =
+          dummyNotes
+              .where(
+                (note) =>
+                    note.title.toLowerCase().contains(
+                      searchText.toLowerCase(),
+                    ) ||
+                    note.content.toLowerCase().contains(
+                      searchText.toLowerCase(),
+                    ),
+              )
+              .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Untuk mengambil data Notes dari models note.dart
-    final notes = Note.dummyNotes();
-
     return Scaffold(
       backgroundColor: Colors.grey.shade900,
       body: SafeArea(
@@ -41,6 +67,7 @@ class HomePage extends StatelessWidget {
 
               // Search Bar Section
               TextField(
+                onChanged: onSearchChanged,
                 style: TextStyle(fontSize: 16, color: Colors.white),
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(vertical: 12),
@@ -64,10 +91,10 @@ class HomePage extends StatelessWidget {
               // List Notes Section
               Expanded(
                 child: ListView.builder(
-                  itemCount: notes.length,
+                  itemCount: filteredNotes.length,
                   itemBuilder: (context, index) {
                     // Menggunakan widget NoteCard
-                    return NoteCard(note: notes[index]);
+                    return NoteCard(note: filteredNotes[index]);
                   },
                 ),
               ),

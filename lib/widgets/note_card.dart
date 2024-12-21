@@ -4,12 +4,12 @@ import '../models/note.dart';
 class NoteCard extends StatelessWidget {
   final Note note;
 
-  NoteCard({required this.note});
+  const NoteCard({super.key, required this.note});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      margin: EdgeInsets.only(top: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 4,
       child: Padding(
