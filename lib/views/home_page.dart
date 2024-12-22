@@ -23,13 +23,13 @@ class _HomePageState extends State<HomePage> {
           dummyNotes
               .where(
                 (note) =>
-                    note.title.toLowerCase().contains(
-                      searchText.toLowerCase(),
-                    ) ||
-                    note.content.toLowerCase().contains(
-                      searchText.toLowerCase(),
-                    ),
-              )
+            note.title.toLowerCase().contains(
+              searchText.toLowerCase(),
+            ) ||
+                note.content.toLowerCase().contains(
+                  searchText.toLowerCase(),
+                ),
+          )
               .toList();
     });
   }
@@ -62,9 +62,9 @@ class _HomePageState extends State<HomePage> {
                 MaterialPageRoute(
                   builder:
                       (context) => FavoritePage(
-                        favoriteNotes: favoriteNotes,
-                        onFavoriteToggle: toggleFavorite,
-                      ),
+                    favoriteNotes: favoriteNotes,
+                    onFavoriteToggle: toggleFavorite,
+                  ),
                 ),
               );
             },
@@ -115,24 +115,28 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () async {
-                        final updatedNote = await Navigator.push<Note>(
+                        final updatedNote = await Navigator.push<Note?>(
                           context,
                           MaterialPageRoute(
-                            builder:
-                                (context) =>
-                                    DetailNotesPage(note: filteredNotes[index]),
+                            builder: (context) =>
+                                DetailNotesPage(note: filteredNotes[index]),
                           ),
                         );
 
-                        if (updatedNote != null) {
-                          setState(() {
+                        setState(() {
+                          if (updatedNote == null) {
+                            // Hapus catatan jika hasil navigasi adalah null
+                            dummyNotes.remove(filteredNotes[index]);
+                            filteredNotes.removeAt(index);
+                          } else {
+                            // Perbarui catatan jika tidak null
                             int oldNotes = dummyNotes.indexOf(
                               filteredNotes[index],
                             );
                             dummyNotes[oldNotes] = updatedNote;
                             filteredNotes[index] = updatedNote;
-                          });
-                        }
+                          }
+                        });
                       },
                       child: NoteCard(
                         note: filteredNotes[index],

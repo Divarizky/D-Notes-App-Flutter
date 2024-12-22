@@ -53,6 +53,11 @@ class _DetailNotesPageState extends State<DetailNotesPage> {
     );
   }
 
+  // Menghapus catatan dengan mengembalikan null
+  void _deleteNote() {
+    Navigator.pop(context, null);
+  }
+
   @override
   Widget build(BuildContext context) {
     // Untuk mengecek apakah sedang mengedit atau menambah catatan baru
@@ -114,13 +119,15 @@ class _DetailNotesPageState extends State<DetailNotesPage> {
         ),
       ),
 
-      // Floating Button Favorite
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {},
+      // Floating Button Delete
+      floatingActionButton: isEditing
+          ? FloatingActionButton(
+        onPressed: _deleteNote,
         elevation: 10,
         backgroundColor: Colors.grey.shade800,
         child: const Icon(Icons.delete, color: Colors.white, size: 38),
-      ),
+      )
+          : null,
     );
   }
 }
