@@ -1,48 +1,3 @@
-// import 'package:flutter/material.dart';
-// import '../models/note.dart';
-
-// class DetailNotesPage extends StatefulWidget {
-//   final Note? note;
-//   const DetailNotesPage({super.key, this.note});
-
-//   @override
-//   State<DetailNotesPage> createState() => _DetailNotesPageState();
-// }
-
-// class _DetailNotesPageState extends State<DetailNotesPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.grey.shade900,
-//       body: SafeArea(
-//         child: Padding(
-//           padding: const EdgeInsets.all(10.0),
-//           child: Column(
-//             children: [
-//               // Heading Section
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   IconButton(
-//                     onPressed: () {
-//                       Navigator.pop(context);
-//                     },
-//                     icon: Container(
-//                       width: 40,
-//                       height: 4,
-//                       child: Icon(Icons.arrow_back, color: Colors.white),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import '../models/note.dart';
 
@@ -157,6 +112,14 @@ class _DetailNotesPageState extends State<DetailNotesPage> {
             ),
           ],
         ),
+      ),
+
+      // Floating Button Favorite
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {},
+        elevation: 10,
+        backgroundColor: Colors.grey.shade800,
+        child: const Icon(Icons.delete, color: Colors.white, size: 38),
       ),
     );
   }
