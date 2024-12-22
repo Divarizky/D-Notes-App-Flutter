@@ -1,3 +1,4 @@
+import 'package:d_notes_app/views/detail_notes_page.dart';
 import 'package:flutter/material.dart';
 import '../models/note.dart';
 import '../widgets/note_card.dart';
@@ -36,34 +37,30 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade900,
+      appBar: AppBar(
+        backgroundColor: Colors.grey.shade900,
+        foregroundColor: Colors.white,
+        title: Text('My Notes', style: TextStyle(fontSize: 24)),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade800,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(Icons.favorite, color: Colors.white),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              // Heading Section
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'My Notes',
-                    style: TextStyle(fontSize: 24, color: Colors.white),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade800,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Icon(Icons.favorite, color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
 
               // Search Bar Section
               TextField(
@@ -105,7 +102,22 @@ class _HomePageState extends State<HomePage> {
 
       // Floating Action Button Section
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          // Navigasi ke DetailNotesPage untuk menambahkan catatan baru
+          final newNote = await Navigator.push<Note>(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => const DetailNotesPage(),
+            ),
+          );
+          if (newNote != null) {
+            setState(() {
+              // Menambahkan catatan baru ke dummyNotes dan filteredNotes
+              dummyNotes.add(newNote);
+              filteredNotes.add(newNote);
+            });
+          }
+        },
         elevation: 10,
         backgroundColor: Colors.grey.shade800,
         child: const Icon(Icons.add, color: Colors.white, size: 38),
